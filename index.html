@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arvind's Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <h1>MyPortfolio</h1>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero hero-flex">
+    <img src="photo3.jpg" alt="Arvind Singh Bhati" class="profile-photo-side" />
+    <div class="hero-text">
+      <h2>Hi, I'm Arvind</h2>
+      <p>Web Developer | MERN Stack | DSA Enthusiast | Ex-AI Intern @ Corizo</p>
+      <div class="hero-buttons">
+        <a href="resume.pdf" download>📄 Download Resume</a>
+        <a href="https://github.com/bannasi" target="_blank">💻 GitHub</a>
+        <a href="https://www.linkedin.com/in/arvind-singh-bhati-6689b9269/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h3>My Projects</h3>
+    <div class="project-grid">
+      <div class="project-card">
+        <h4>Portfolio Website</h4>
+        <p>HTML + CSS + JAVASCRIPT</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h3>Contact Me</h3>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p id="responseMsg">Message Sent!</p>
+  </section>
+
+  <script>
+    const TOKEN = "7937297944:AAHp5RizBzi8NZQgcORzdNOqmxzwe2VBpJA";
+    const CHAT_ID = "6641942375";
+    const URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const msg = document.getElementById("message").value;
+
+      const text = `📩 New Contact Message:\\n👤 Name: ${name}\\n📧 Email: ${email}\\n📝 Message: ${msg}`;
+
+      fetch(URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: text })
+      }).then(() => {
+        alert("Message sent to your Telegram!");
+        document.getElementById("contactForm").reset();
+      }).catch(err => {
+        alert("Something went wrong!");
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>
